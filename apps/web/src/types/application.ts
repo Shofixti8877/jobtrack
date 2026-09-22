@@ -1,10 +1,7 @@
+import type { APPLICATION_STATUSES } from '../constants/applicationStatus';
+
 export type ApplicationStatus =
-  | 'applied'
-  | 'screening'
-  | 'technical'
-  | 'final'
-  | 'offer'
-  | 'rejected';
+  (typeof APPLICATION_STATUSES)[number]['value'];
 
 export type Application = {
   id: string;

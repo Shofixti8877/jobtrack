@@ -2,7 +2,10 @@ import { useState } from 'react';
 import AddApplicationForm from '../components/applications/AddApplicationForm';
 import ApplicationCard from '../components/applications/ApplicationCard';
 import { applications as initialApplications } from '../data/applications';
-import type { Application } from '../types/application';
+import type {
+  Application,
+  ApplicationStatus,
+} from '../types/application';
 
 function ApplicationsPage() {
   const [applications, setApplications] =
@@ -23,6 +26,19 @@ function ApplicationsPage() {
   );
 }
 
+function handleStatusChange(
+  id: string,
+  status: ApplicationStatus,
+) {
+  setApplications((currentApplications) =>
+    currentApplications.map((application) =>
+      application.id === id
+        ? { ...application, status }
+        : application,
+    ),
+  );
+}
+
   return (
     <section>
       <h1>Applications</h1>
@@ -36,6 +52,7 @@ function ApplicationsPage() {
             key={application.id}
             application={application}
             onDelete={handleDeleteApplication}
+            onStatusChange={handleStatusChange}
           />
         ))}
       </div>

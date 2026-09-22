@@ -3,6 +3,7 @@ import type {
   Application,
   ApplicationStatus,
 } from '../../types/application';
+import { APPLICATION_STATUSES } from '../../constants/applicationStatus';
 
 type AddApplicationFormProps = {
   onAdd: (application: Application) => void;
@@ -65,12 +66,14 @@ function AddApplicationForm({ onAdd }: AddApplicationFormProps) {
             setStatus(event.target.value as ApplicationStatus)
           }
         >
-          <option value="applied">Applied</option>
-          <option value="screening">Screening</option>
-          <option value="technical">Technical</option>
-          <option value="final">Final interview</option>
-          <option value="offer">Offer</option>
-          <option value="rejected">Rejected</option>
+          {APPLICATION_STATUSES.map((statusOption) => (
+    <option
+      key={statusOption.value}
+      value={statusOption.value}
+    >
+      {statusOption.label}
+    </option>
+  ))}
         </select>
       </div>
 
