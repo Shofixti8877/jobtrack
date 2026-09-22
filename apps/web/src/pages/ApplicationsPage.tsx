@@ -7,12 +7,17 @@ import type {
   ApplicationStatus,
 } from '../types/application';
 import './ApplicationsPage.css';
+import { APPLICATION_STATUSES } from '../constants/applicationStatus';
 
 function ApplicationsPage() {
   const [applications, setApplications] =
     useState<Application[]>(initialApplications);
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+
+  const [searchTerm, setSearchTerm] = useState('');
+const [statusFilter, setStatusFilter] =
+  useState<ApplicationStatus | 'all'>('all');
 
   function handleAddApplication(application: Application) {
   setApplications((currentApplications) => [
@@ -44,6 +49,20 @@ function ApplicationsPage() {
     );
   }
 
+  const filteredApplications = applications.filter((application) => {
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+  const matchesSearch =
+    application.company.toLowerCase().includes(normalizedSearchTerm) ||
+    application.position.toLowerCase().includes(normalizedSearchTerm);
+
+  const matchesStatus =
+    statusFilter === 'all' ||
+    application.status === statusFilter;
+
+  return matchesSearch && matchesStatus;
+});
+
   return (
     <section className="applications-page">
       <header className="applications-page__header">
@@ -53,17 +72,17 @@ function ApplicationsPage() {
         </div>
 
         <div className="applications-page__header-actions">
-  <div className="applications-page__count">
-    {applications.length} applications
-  </div>
+            <div className="applications-page__count">
+            {filteredApplications.length} of {applications.length} applications
+            </div>
 
-  <button
-    className="applications-page__add-button"
-    onClick={() => setIsAddFormOpen(true)}
-  >
-    Add application
-  </button>
-</div>
+            <button
+                className="applications-page__add-button"
+                onClick={() => setIsAddFormOpen(true)}
+                >
+                Add application
+            </button>
+        </div>
         
       </header>
 
@@ -90,14 +109,43 @@ function ApplicationsPage() {
   </div>
 )}
 
+<div className="applications-page__filters">
+  <input
+    type="search"
+    placeholder="Search company or position..."
+    value={searchTerm}
+    onChange={(event) => setSearchTerm(event.target.value)}
+  />
+
+  <select
+    value={statusFilter}
+    onChange={(event) =>
+      setStatusFilter(
+        event.target.value as ApplicationStatus | 'all',
+      )
+    }
+  >
+    <option value="all">All statuses</option>
+
+    {APPLICATION_STATUSES.map((statusOption) => (
+      <option
+        key={statusOption.value}
+        value={statusOption.value}
+      >
+        {statusOption.label}
+      </option>
+    ))}
+  </select>
+</div>
+
       <div className="applications-page__grid">
-        {applications.map((application) => (
-          <ApplicationCard
-            key={application.id}
-            application={application}
-            onDelete={handleDeleteApplication}
-            onStatusChange={handleStatusChange}
-          />
+        {filteredApplications.map((application) => (
+            <ApplicationCard
+                key={application.id}
+                application={application}
+                onDelete={handleDeleteApplication}
+                onStatusChange={handleStatusChange}
+            />
         ))}
       </div>
     </section>

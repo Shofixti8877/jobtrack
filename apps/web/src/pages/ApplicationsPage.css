@@ -100,3 +100,29 @@
   line-height: 1;
   cursor: pointer;
 }
+
+.applications-page__filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.applications-page__filters input {
+  flex: 1;
+}
+
+.applications-page__filters input,
+.applications-page__filters select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font: inherit;
+}
+
+.applications-page__filters input:focus,
+.applications-page__filters select:focus {
+  outline: 2px solid #9ca3af;
+  outline-offset: 1px;
+  border-color: #6b7280;
+}
