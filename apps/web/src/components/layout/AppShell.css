@@ -33,6 +33,7 @@
   font: inherit;
   text-align: left;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .sidebar__nav-item:hover {

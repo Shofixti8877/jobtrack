@@ -1,11 +1,34 @@
+import { Navigate, Route, Routes } from 'react-router';
 import AppShell from './components/layout/AppShell';
 import ApplicationsPage from './pages/ApplicationsPage';
+import ContactsPage from './pages/ContactsPage';
+import DashboardPage from './pages/DashboardPage';
 
 function App() {
   return (
-    <AppShell>
-      <ApplicationsPage />
-    </AppShell>
+    <Routes>
+      <Route element={<AppShell />}>
+        <Route
+          index
+          element={<Navigate to="/applications" replace />}
+        />
+
+        <Route
+          path="/applications"
+          element={<ApplicationsPage />}
+        />
+
+        <Route
+          path="/dashboard"
+          element={<DashboardPage />}
+        />
+
+        <Route
+          path="/contacts"
+          element={<ContactsPage />}
+        />
+      </Route>
+    </Routes>
   );
 }
 

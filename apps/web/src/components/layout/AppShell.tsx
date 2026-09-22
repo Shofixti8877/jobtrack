@@ -1,28 +1,45 @@
-import type { ReactNode } from 'react';
+import { NavLink, Outlet } from 'react-router';
 import './AppShell.css';
 
-type AppShellProps = {
-  children: ReactNode;
-};
-
-function AppShell({ children }: AppShellProps) {
+function AppShell() {
   return (
     <div className="app-shell">
       <aside className="sidebar">
         <div className="sidebar__logo">JobTrack</div>
 
         <nav className="sidebar__nav">
-          <button className="sidebar__nav-item sidebar__nav-item--active">
+          <NavLink
+            to="/applications"
+            className={({ isActive }) =>
+              `sidebar__nav-item ${
+                isActive ? 'sidebar__nav-item--active' : ''
+              }`
+            }
+          >
             Applications
-          </button>
+          </NavLink>
 
-          <button className="sidebar__nav-item">
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `sidebar__nav-item ${
+                isActive ? 'sidebar__nav-item--active' : ''
+              }`
+            }
+          >
             Dashboard
-          </button>
+          </NavLink>
 
-          <button className="sidebar__nav-item">
+          <NavLink
+            to="/contacts"
+            className={({ isActive }) =>
+              `sidebar__nav-item ${
+                isActive ? 'sidebar__nav-item--active' : ''
+              }`
+            }
+          >
             Contacts
-          </button>
+          </NavLink>
         </nav>
       </aside>
 
@@ -31,7 +48,9 @@ function AppShell({ children }: AppShellProps) {
           <span>My Job Search</span>
         </header>
 
-        <main className="main-content">{children}</main>
+        <main className="main-content">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
