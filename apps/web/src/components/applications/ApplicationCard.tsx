@@ -1,8 +1,9 @@
+import { APPLICATION_STATUSES } from '../../constants/applicationStatus';
 import type {
   Application,
   ApplicationStatus,
 } from '../../types/application';
-import { APPLICATION_STATUSES } from '../../constants/applicationStatus';
+import './ApplicationCard.css';
 
 type ApplicationCardProps = {
   application: Application;
@@ -19,41 +20,58 @@ function ApplicationCard({
   onStatusChange,
 }: ApplicationCardProps) {
   return (
-    <article>
-      <h2>{application.position}</h2>
-      <p>{application.company}</p>
+    <article className="application-card">
+      <div className="application-card__header">
+        <div>
+          <h2>{application.position}</h2>
+          <p>{application.company}</p>
+        </div>
 
-      <div>
+        <span
+          className={`application-card__status application-card__status--${application.status}`}
+        >
+          {application.status}
+        </span>
+      </div>
+
+      <div className="application-card__details">
         <label htmlFor={`status-${application.id}`}>
           Status
         </label>
 
         <select
-  id={`status-${application.id}`}
-  value={application.status}
-  onChange={(event) =>
-    onStatusChange(
-      application.id,
-      event.target.value as ApplicationStatus,
-    )
-  }
->
-  {APPLICATION_STATUSES.map((statusOption) => (
-    <option
-      key={statusOption.value}
-      value={statusOption.value}
-    >
-      {statusOption.label}
-    </option>
-  ))}
-</select>
+          id={`status-${application.id}`}
+          value={application.status}
+          onChange={(event) =>
+            onStatusChange(
+              application.id,
+              event.target.value as ApplicationStatus,
+            )
+          }
+        >
+          {APPLICATION_STATUSES.map((statusOption) => (
+            <option
+              key={statusOption.value}
+              value={statusOption.value}
+            >
+              {statusOption.label}
+            </option>
+          ))}
+        </select>
+
+        <p className="application-card__date">
+          Applied {application.appliedAt}
+        </p>
       </div>
 
-      <p>Applied: {application.appliedAt}</p>
-
-      <button onClick={() => onDelete(application.id)}>
-        Delete
-      </button>
+      <div className="application-card__actions">
+        <button
+          className="application-card__delete"
+          onClick={() => onDelete(application.id)}
+        >
+          Delete
+        </button>
+      </div>
     </article>
   );
 }

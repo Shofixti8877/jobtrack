@@ -1,0 +1,42 @@
+
+.applications-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.applications-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.applications-page__header h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+}
+
+.applications-page__header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.applications-page__count {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.applications-page__form {
+  margin-bottom: 32px;
+}
+
+.applications-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}

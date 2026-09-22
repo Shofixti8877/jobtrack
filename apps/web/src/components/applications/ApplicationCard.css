@@ -1,0 +1,108 @@
+.application-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+}
+
+.application-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.application-card__header h2 {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.application-card__header p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.application-card__status {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.application-card__status--applied {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.application-card__status--screening {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.application-card__status--technical {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.application-card__status--final {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.application-card__status--offer {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.application-card__status--rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.application-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.application-card__details label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.application-card__details select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  font: inherit;
+}
+
+.application-card__date {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.application-card__actions {
+  margin-top: auto;
+  padding-top: 4px;
+}
+
+.application-card__delete {
+  border: 0;
+  background: transparent;
+  color: #b91c1c;
+  font: inherit;
+  cursor: pointer;
+}
+
+.application-card__delete:hover {
+  text-decoration: underline;
+}

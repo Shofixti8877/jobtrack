@@ -6,6 +6,7 @@ import type {
   Application,
   ApplicationStatus,
 } from '../types/application';
+import './ApplicationsPage.css';
 
 function ApplicationsPage() {
   const [applications, setApplications] =
@@ -19,34 +20,44 @@ function ApplicationsPage() {
   }
 
   function handleDeleteApplication(id: string) {
-  setApplications((currentApplications) =>
-    currentApplications.filter(
-      (application) => application.id !== id,
-    ),
-  );
-}
+    setApplications((currentApplications) =>
+      currentApplications.filter(
+        (application) => application.id !== id,
+      ),
+    );
+  }
 
-function handleStatusChange(
-  id: string,
-  status: ApplicationStatus,
-) {
-  setApplications((currentApplications) =>
-    currentApplications.map((application) =>
-      application.id === id
-        ? { ...application, status }
-        : application,
-    ),
-  );
-}
+  function handleStatusChange(
+    id: string,
+    status: ApplicationStatus,
+  ) {
+    setApplications((currentApplications) =>
+      currentApplications.map((application) =>
+        application.id === id
+          ? { ...application, status }
+          : application,
+      ),
+    );
+  }
 
   return (
-    <section>
-      <h1>Applications</h1>
-      <p>Track and manage your job applications.</p>
+    <section className="applications-page">
+      <header className="applications-page__header">
+        <div>
+          <h1>Applications</h1>
+          <p>Track and manage your job applications.</p>
+        </div>
 
-      <AddApplicationForm onAdd={handleAddApplication} />
+        <div className="applications-page__count">
+          {applications.length} applications
+        </div>
+      </header>
 
-      <div>
+      <div className="applications-page__form">
+        <AddApplicationForm onAdd={handleAddApplication} />
+      </div>
+
+      <div className="applications-page__grid">
         {applications.map((application) => (
           <ApplicationCard
             key={application.id}
