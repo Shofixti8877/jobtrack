@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import AddApplicationForm from '../components/applications/AddApplicationForm';
 import ApplicationCard from '../components/applications/ApplicationCard';
 import { applications as initialApplications } from '../data/applications';
 import type { Application } from '../types/application';
@@ -7,18 +8,10 @@ function ApplicationsPage() {
   const [applications, setApplications] =
     useState<Application[]>(initialApplications);
 
-  function handleAddApplication() {
-    const newApplication: Application = {
-      id: crypto.randomUUID(),
-      company: 'Stark Industries',
-      position: 'Senior React Developer',
-      status: 'applied',
-      appliedAt: '2026-09-22',
-    };
-
+  function handleAddApplication(application: Application) {
     setApplications((currentApplications) => [
       ...currentApplications,
-      newApplication,
+      application,
     ]);
   }
 
@@ -27,9 +20,7 @@ function ApplicationsPage() {
       <h1>Applications</h1>
       <p>Track and manage your job applications.</p>
 
-      <button onClick={handleAddApplication}>
-        Add application
-      </button>
+      <AddApplicationForm onAdd={handleAddApplication} />
 
       <div>
         {applications.map((application) => (
