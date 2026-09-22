@@ -1,0 +1,66 @@
+.application-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.application-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.application-form__field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.application-form__field input,
+.application-form__field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  color: #111827;
+  font: inherit;
+}
+
+.application-form__field input:focus,
+.application-form__field select:focus {
+  outline: 2px solid #9ca3af;
+  outline-offset: 1px;
+  border-color: #6b7280;
+}
+
+.application-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.application-form__actions button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.application-form__cancel {
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #374151;
+}
+
+.application-form__submit {
+  border: 0;
+  background: #111827;
+  color: white;
+}
+
+.application-form__submit:hover {
+  background: #1f2937;
+}
