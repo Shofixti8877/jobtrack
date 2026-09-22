@@ -1,9 +1,11 @@
+import AppShell from './components/layout/AppShell';
+import ApplicationsPage from './pages/ApplicationsPage';
+
 function App() {
   return (
-    <main>
-      <h1>JobTrack</h1>
-      <p>Your job search, organized.</p>
-    </main>
+    <AppShell>
+      <ApplicationsPage />
+    </AppShell>
   );
 }
 
