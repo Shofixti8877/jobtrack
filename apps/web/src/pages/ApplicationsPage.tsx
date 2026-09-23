@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AddApplicationForm from '../components/applications/AddApplicationForm';
 import ApplicationCard from '../components/applications/ApplicationCard';
-import { applications as initialApplications } from '../data/applications';
+import { useApplications } from '../context/ApplicationsContext';
 import type {
   Application,
   ApplicationStatus,
@@ -10,44 +10,23 @@ import './ApplicationsPage.css';
 import { APPLICATION_STATUSES } from '../constants/applicationStatus';
 
 function ApplicationsPage() {
-  const [applications, setApplications] =
-    useState<Application[]>(initialApplications);
 
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
-
   const [searchTerm, setSearchTerm] = useState('');
-const [statusFilter, setStatusFilter] =
+  const [statusFilter, setStatusFilter] =
   useState<ApplicationStatus | 'all'>('all');
 
-  function handleAddApplication(application: Application) {
-  setApplications((currentApplications) => [
-    ...currentApplications,
-    application,
-  ]);
+  const {
+  applications,
+  addApplication,
+  deleteApplication,
+  updateApplicationStatus,
+  } = useApplications();
 
+  function handleAddApplication(application: Application) {
+  addApplication(application);
   setIsAddFormOpen(false);
 }
-
-  function handleDeleteApplication(id: string) {
-    setApplications((currentApplications) =>
-      currentApplications.filter(
-        (application) => application.id !== id,
-      ),
-    );
-  }
-
-  function handleStatusChange(
-    id: string,
-    status: ApplicationStatus,
-  ) {
-    setApplications((currentApplications) =>
-      currentApplications.map((application) =>
-        application.id === id
-          ? { ...application, status }
-          : application,
-      ),
-    );
-  }
 
   const filteredApplications = applications.filter((application) => {
   const normalizedSearchTerm = searchTerm.trim().toLowerCase();
@@ -143,8 +122,8 @@ const [statusFilter, setStatusFilter] =
             <ApplicationCard
                 key={application.id}
                 application={application}
-                onDelete={handleDeleteApplication}
-                onStatusChange={handleStatusChange}
+                onDelete={deleteApplication}
+                onStatusChange={updateApplicationStatus}
             />
         ))}
       </div>
