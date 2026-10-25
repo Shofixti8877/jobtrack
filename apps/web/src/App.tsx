@@ -3,6 +3,7 @@ import AppShell from './components/layout/AppShell';
 import ApplicationsPage from './pages/ApplicationsPage';
 import ContactsPage from './pages/ContactsPage';
 import DashboardPage from './pages/DashboardPage';
+import ApplicationDetailsPage from './pages/ApplicationDetailsPage';
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
         <Route
           path="/contacts"
           element={<ContactsPage />}
+        />
+        <Route
+          path="/applications/:id"
+          element={<ApplicationDetailsPage />}
         />
       </Route>
     </Routes>

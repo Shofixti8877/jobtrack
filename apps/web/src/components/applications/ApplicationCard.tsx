@@ -4,6 +4,7 @@ import type {
   ApplicationStatus,
 } from '../../types/application';
 import './ApplicationCard.css';
+import { Link } from 'react-router';
 
 type ApplicationCardProps = {
   application: Application;
@@ -23,7 +24,14 @@ function ApplicationCard({
     <article className="application-card">
       <div className="application-card__header">
         <div>
-          <h2>{application.position}</h2>
+          <h2>
+            <Link
+              to={`/applications/${application.id}`}
+              className="application-card__title-link"
+            >
+              {application.position}
+            </Link>
+          </h2>
           <p>{application.company}</p>
         </div>
 

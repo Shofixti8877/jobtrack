@@ -1,0 +1,135 @@
+.application-details {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.application-details__back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #4b5563;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.application-details__back:hover {
+  color: #111827;
+  text-decoration: underline;
+}
+
+.application-details__card {
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 8%);
+}
+
+.application-details__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.application-details__header h1 {
+  margin: 4px 0 0;
+  font-size: 30px;
+  color: #111827;
+}
+
+.application-details__company {
+  margin: 0;
+  color: #6b7280;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.application-details__status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.application-details__status--applied {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.application-details__status--screening {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.application-details__status--technical {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.application-details__status--final {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.application-details__status--offer {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.application-details__status--rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.application-details__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+  padding: 24px 0;
+}
+
+.application-details__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.application-details__label {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.application-details__notes {
+  padding: 20px;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.application-details__notes p {
+  margin: 8px 0 0;
+  line-height: 1.6;
+}
+
+.application-details__actions {
+  margin-top: 24px;
+}
+
+.application-details__job-link {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #111827;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.application-details__job-link:hover {
+  background: #1f2937;
+}

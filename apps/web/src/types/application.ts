@@ -1,7 +1,6 @@
-import type { APPLICATION_STATUSES } from '../constants/applicationStatus';
+import type { APPLICATION_STATUSES } from "../constants/applicationStatus";
 
-export type ApplicationStatus =
-  (typeof APPLICATION_STATUSES)[number]['value'];
+export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number]["value"];
 
 export type Application = {
   id: string;
@@ -9,4 +8,9 @@ export type Application = {
   position: string;
   status: ApplicationStatus;
   appliedAt: string;
+
+  location?: string;
+  jobUrl?: string;
+  source?: string;
+  notes?: string;
 };
