@@ -46,44 +46,6 @@
   font-weight: 600;
 }
 
-.application-details__status {
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.application-details__status--applied {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.application-details__status--screening {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.application-details__status--technical {
-  background: #ede9fe;
-  color: #6d28d9;
-}
-
-.application-details__status--final {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.application-details__status--offer {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.application-details__status--rejected {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
 .application-details__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));

@@ -1,14 +1,13 @@
 import { Link, useParams } from 'react-router';
 import { useApplications } from '../context/ApplicationsContext';
 import './ApplicationDetailsPage.css';
+import StatusBadge from '../components/applications/StatusBadge';
 
 function ApplicationDetailsPage() {
   const { id } = useParams();
   const { applications } = useApplications();
 
-  const application = applications.find(
-    (application) => application.id === id,
-  );
+  const application = applications.find((application) => application.id === id);
 
   if (!application) {
     return (
@@ -23,10 +22,7 @@ function ApplicationDetailsPage() {
 
   return (
     <section className="application-details">
-      <Link
-        to="/applications"
-        className="application-details__back"
-      >
+      <Link to="/applications" className="application-details__back">
         ← Back to applications
       </Link>
 
@@ -40,35 +36,25 @@ function ApplicationDetailsPage() {
             <h1>{application.position}</h1>
           </div>
 
-          <span
-            className={`application-details__status application-details__status--${application.status}`}
-          >
-            {application.status}
-          </span>
+          <StatusBadge status={application.status} />
         </header>
 
         <div className="application-details__grid">
           <div className="application-details__field">
-            <span className="application-details__label">
-              Applied
-            </span>
+            <span className="application-details__label">Applied</span>
             <span>{application.appliedAt}</span>
           </div>
 
           {application.location && (
             <div className="application-details__field">
-              <span className="application-details__label">
-                Location
-              </span>
+              <span className="application-details__label">Location</span>
               <span>{application.location}</span>
             </div>
           )}
 
           {application.source && (
             <div className="application-details__field">
-              <span className="application-details__label">
-                Source
-              </span>
+              <span className="application-details__label">Source</span>
               <span>{application.source}</span>
             </div>
           )}
@@ -76,9 +62,7 @@ function ApplicationDetailsPage() {
 
         {application.notes && (
           <div className="application-details__notes">
-            <span className="application-details__label">
-              Notes
-            </span>
+            <span className="application-details__label">Notes</span>
             <p>{application.notes}</p>
           </div>
         )}

@@ -1,18 +1,13 @@
 import { APPLICATION_STATUSES } from '../../constants/applicationStatus';
-import type {
-  Application,
-  ApplicationStatus,
-} from '../../types/application';
+import type { Application, ApplicationStatus } from '../../types/application';
 import './ApplicationCard.css';
 import { Link } from 'react-router';
+import StatusBadge from './StatusBadge';
 
 type ApplicationCardProps = {
   application: Application;
   onDelete: (id: string) => void;
-  onStatusChange: (
-    id: string,
-    status: ApplicationStatus,
-  ) => void;
+  onStatusChange: (id: string, status: ApplicationStatus) => void;
 };
 
 function ApplicationCard({
@@ -35,17 +30,11 @@ function ApplicationCard({
           <p>{application.company}</p>
         </div>
 
-        <span
-          className={`application-card__status application-card__status--${application.status}`}
-        >
-          {application.status}
-        </span>
+        <StatusBadge status={application.status} />
       </div>
 
       <div className="application-card__details">
-        <label htmlFor={`status-${application.id}`}>
-          Status
-        </label>
+        <label htmlFor={`status-${application.id}`}>Status</label>
 
         <select
           id={`status-${application.id}`}
@@ -58,10 +47,7 @@ function ApplicationCard({
           }
         >
           {APPLICATION_STATUSES.map((statusOption) => (
-            <option
-              key={statusOption.value}
-              value={statusOption.value}
-            >
+            <option key={statusOption.value} value={statusOption.value}>
               {statusOption.label}
             </option>
           ))}

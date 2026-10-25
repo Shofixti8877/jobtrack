@@ -24,6 +24,7 @@ function ApplicationsPage() {
     addApplication(application);
     setIsAddFormOpen(false);
   }
+
   const filteredApplications = applications.filter((application) => {
     const normalizedSearchTerm = searchTerm.trim().toLowerCase();
 

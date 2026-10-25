@@ -1,0 +1,38 @@
+.status-badge {
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-badge--applied {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.status-badge--screening {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-badge--technical {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.status-badge--final {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge--offer {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge--rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}

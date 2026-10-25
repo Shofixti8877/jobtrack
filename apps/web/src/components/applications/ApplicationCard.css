@@ -26,44 +26,6 @@
   color: #6b7280;
 }
 
-.application-card__status {
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.application-card__status--applied {
-  background: #e5e7eb;
-  color: #374151;
-}
-
-.application-card__status--screening {
-  background: #dbeafe;
-  color: #1d4ed8;
-}
-
-.application-card__status--technical {
-  background: #ede9fe;
-  color: #6d28d9;
-}
-
-.application-card__status--final {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.application-card__status--offer {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.application-card__status--rejected {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
 .application-card__details {
   display: flex;
   flex-direction: column;

@@ -9,29 +9,14 @@ function App() {
   return (
     <Routes>
       <Route element={<AppShell />}>
-        <Route
-          index
-          element={<Navigate to="/applications" replace />}
-        />
+        <Route index element={<Navigate to="/applications" replace />} />
 
-        <Route
-          path="/applications"
-          element={<ApplicationsPage />}
-        />
+        <Route path="/applications" element={<ApplicationsPage />} />
 
-        <Route
-          path="/dashboard"
-          element={<DashboardPage />}
-        />
+        <Route path="/dashboard" element={<DashboardPage />} />
 
-        <Route
-          path="/contacts"
-          element={<ContactsPage />}
-        />
-        <Route
-          path="/applications/:id"
-          element={<ApplicationDetailsPage />}
-        />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="/applications/:id" element={<ApplicationDetailsPage />} />
       </Route>
     </Routes>
   );

@@ -8,14 +8,12 @@ function DashboardPage() {
 
   const activeApplications = applications.filter(
     (application) =>
-      application.status !== 'rejected' &&
-      application.status !== 'offer',
+      application.status !== 'rejected' && application.status !== 'offer',
   ).length;
 
   const interviewApplications = applications.filter(
     (application) =>
-      application.status === 'technical' ||
-      application.status === 'final',
+      application.status === 'technical' || application.status === 'final',
   ).length;
 
   const offers = applications.filter(
@@ -36,37 +34,27 @@ function DashboardPage() {
       <div className="dashboard-page__stats">
         <article className="stat-card">
           <span className="stat-card__label">Total applications</span>
-          <strong className="stat-card__value">
-            {totalApplications}
-          </strong>
+          <strong className="stat-card__value">{totalApplications}</strong>
         </article>
 
         <article className="stat-card">
           <span className="stat-card__label">Active processes</span>
-          <strong className="stat-card__value">
-            {activeApplications}
-          </strong>
+          <strong className="stat-card__value">{activeApplications}</strong>
         </article>
 
         <article className="stat-card">
           <span className="stat-card__label">Interviews</span>
-          <strong className="stat-card__value">
-            {interviewApplications}
-          </strong>
+          <strong className="stat-card__value">{interviewApplications}</strong>
         </article>
 
         <article className="stat-card">
           <span className="stat-card__label">Offers</span>
-          <strong className="stat-card__value">
-            {offers}
-          </strong>
+          <strong className="stat-card__value">{offers}</strong>
         </article>
 
         <article className="stat-card">
           <span className="stat-card__label">Rejected</span>
-          <strong className="stat-card__value">
-            {rejected}
-          </strong>
+          <strong className="stat-card__value">{rejected}</strong>
         </article>
       </div>
     </section>
