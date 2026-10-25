@@ -17,7 +17,8 @@
 }
 
 .application-form__field input,
-.application-form__field select {
+.application-form__field select,
+.application-form__field textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid #d1d5db;
@@ -28,10 +29,16 @@
 }
 
 .application-form__field input:focus,
-.application-form__field select:focus {
+.application-form__field select:focus,
+.application-form__field textarea:focus {
   outline: 2px solid #9ca3af;
   outline-offset: 1px;
   border-color: #6b7280;
+}
+
+.application-form__field textarea {
+  resize: vertical;
+  min-height: 100px;
 }
 
 .application-form__actions {
