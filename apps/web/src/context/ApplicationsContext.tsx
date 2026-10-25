@@ -1,37 +1,26 @@
 /* eslint-disable react-refresh/only-export-components */
-import {
-  createContext,
-  useContext,
-  useState,
-  type ReactNode,
-} from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 
 import { applications as initialApplications } from '../data/applications';
-import type {
-  Application,
-  ApplicationStatus,
-} from '../types/application';
+import type { Application, ApplicationStatus } from '../types/application';
 
 type ApplicationsContextValue = {
   applications: Application[];
   addApplication: (application: Application) => void;
   deleteApplication: (id: string) => void;
-  updateApplicationStatus: (
-    id: string,
-    status: ApplicationStatus,
-  ) => void;
+  updateApplication: (application: Application) => void;
+  updateApplicationStatus: (id: string, status: ApplicationStatus) => void;
 };
 
-const ApplicationsContext =
-  createContext<ApplicationsContextValue | undefined>(undefined);
+const ApplicationsContext = createContext<ApplicationsContextValue | undefined>(
+  undefined,
+);
 
 type ApplicationsProviderProps = {
   children: ReactNode;
 };
 
-export function ApplicationsProvider({
-  children,
-}: ApplicationsProviderProps) {
+export function ApplicationsProvider({ children }: ApplicationsProviderProps) {
   const [applications, setApplications] =
     useState<Application[]>(initialApplications);
 
@@ -44,20 +33,23 @@ export function ApplicationsProvider({
 
   function deleteApplication(id: string) {
     setApplications((currentApplications) =>
-      currentApplications.filter(
-        (application) => application.id !== id,
+      currentApplications.filter((application) => application.id !== id),
+    );
+  }
+
+  function updateApplicationStatus(id: string, status: ApplicationStatus) {
+    setApplications((currentApplications) =>
+      currentApplications.map((application) =>
+        application.id === id ? { ...application, status } : application,
       ),
     );
   }
 
-  function updateApplicationStatus(
-    id: string,
-    status: ApplicationStatus,
-  ) {
+  function updateApplication(updatedApplication: Application) {
     setApplications((currentApplications) =>
       currentApplications.map((application) =>
-        application.id === id
-          ? { ...application, status }
+        application.id === updatedApplication.id
+          ? updatedApplication
           : application,
       ),
     );
@@ -70,6 +62,7 @@ export function ApplicationsProvider({
         addApplication,
         deleteApplication,
         updateApplicationStatus,
+        updateApplication,
       }}
     >
       {children}

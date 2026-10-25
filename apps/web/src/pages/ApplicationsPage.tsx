@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import AddApplicationForm from '../components/applications/AddApplicationForm';
+import ApplicationForm from '../components/applications/ApplicationForm';
 import ApplicationCard from '../components/applications/ApplicationCard';
 import { useApplications } from '../context/ApplicationsContext';
 import type { Application, ApplicationStatus } from '../types/application';
@@ -75,8 +75,8 @@ function ApplicationsPage() {
               </button>
             </div>
 
-            <AddApplicationForm
-              onAdd={handleAddApplication}
+            <ApplicationForm
+              onSubmit={handleAddApplication}
               onCancel={() => setIsAddFormOpen(false)}
             />
           </div>

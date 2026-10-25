@@ -2,11 +2,13 @@ import { Link, useParams } from 'react-router';
 import { useApplications } from '../context/ApplicationsContext';
 import './ApplicationDetailsPage.css';
 import StatusBadge from '../components/applications/StatusBadge';
+import { useState } from 'react';
+import ApplicationForm from '../components/applications/ApplicationForm';
 
 function ApplicationDetailsPage() {
   const { id } = useParams();
-  const { applications } = useApplications();
-
+  const { applications, updateApplication } = useApplications();
+  const [isEditing, setIsEditing] = useState(false);
   const application = applications.find((application) => application.id === id);
 
   if (!application) {
@@ -15,6 +17,24 @@ function ApplicationDetailsPage() {
         <div className="application-details__card">
           <h1>Application not found</h1>
           <Link to="/applications">← Back to applications</Link>
+        </div>
+      </section>
+    );
+  }
+  if (isEditing) {
+    return (
+      <section className="application-details">
+        <div className="application-details__card">
+          <h1>Edit application</h1>
+
+          <ApplicationForm
+            initialApplication={application}
+            onSubmit={(updatedApplication) => {
+              updateApplication(updatedApplication);
+              setIsEditing(false);
+            }}
+            onCancel={() => setIsEditing(false)}
+          />
         </div>
       </section>
     );
@@ -79,6 +99,9 @@ function ApplicationDetailsPage() {
             </a>
           </div>
         )}
+        <button type="button" onClick={() => setIsEditing(true)}>
+          Edit application
+        </button>
       </article>
     </section>
   );
