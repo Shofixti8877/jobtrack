@@ -18,6 +18,8 @@ function ApplicationsPage() {
     addApplication,
     deleteApplication,
     updateApplicationStatus,
+    isLoading,
+    error,
   } = useApplications();
 
   function handleAddApplication(application: Application) {
@@ -37,6 +39,13 @@ function ApplicationsPage() {
 
     return matchesSearch && matchesStatus;
   });
+  if (isLoading) {
+    return <p>Loading applications...</p>;
+  }
+
+  if (error) {
+    return <p>Could not load applications: {error}</p>;
+  }
 
   return (
     <section className="applications-page">

@@ -2,7 +2,7 @@ import { useApplications } from '../context/ApplicationsContext';
 import './DashboardPage.css';
 
 function DashboardPage() {
-  const { applications } = useApplications();
+  const { applications, isLoading, error } = useApplications();
 
   const totalApplications = applications.length;
 
@@ -23,6 +23,14 @@ function DashboardPage() {
   const rejected = applications.filter(
     (application) => application.status === 'rejected',
   ).length;
+
+  if (isLoading) {
+    return <p>Loading dashboard...</p>;
+  }
+
+  if (error) {
+    return <p>Could not load dashboard: {error}</p>;
+  }
 
   return (
     <section className="dashboard-page">
