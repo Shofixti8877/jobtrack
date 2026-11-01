@@ -1,7 +1,16 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 
 import { ApplicationsService } from './applications.service.js';
 import { CreateApplicationDto } from './dto/create-application.dto.js';
+import { UpdateApplicationDto } from './dto/update-application.dto.js';
 
 @Controller('applications')
 export class ApplicationsController {
@@ -20,5 +29,18 @@ export class ApplicationsController {
   @Post()
   create(@Body() createApplicationDto: CreateApplicationDto) {
     return this.applicationsService.create(createApplicationDto);
+  }
+
+  @Patch(':id')
+  update(
+    @Param('id') id: string,
+    @Body() updateApplicationDto: UpdateApplicationDto,
+  ) {
+    return this.applicationsService.update(id, updateApplicationDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.applicationsService.remove(id);
   }
 }

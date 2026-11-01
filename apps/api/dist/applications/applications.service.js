@@ -46,6 +46,17 @@ let ApplicationsService = class ApplicationsService {
         this.applications.push(application);
         return application;
     }
+    update(id, updateApplicationDto) {
+        const application = this.findOne(id);
+        Object.assign(application, updateApplicationDto);
+        return application;
+    }
+    remove(id) {
+        const application = this.findOne(id);
+        const index = this.applications.indexOf(application);
+        this.applications.splice(index, 1);
+        return application;
+    }
 };
 ApplicationsService = __decorate([
     Injectable()

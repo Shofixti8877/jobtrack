@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { randomUUID } from 'node:crypto';
 import type { Application } from './application.js';
 import type { CreateApplicationDto } from './dto/create-application.dto.js';
+import type { UpdateApplicationDto } from './dto/update-application.dto.js';
 
 @Injectable()
 export class ApplicationsService {
@@ -50,6 +51,24 @@ export class ApplicationsService {
     };
 
     this.applications.push(application);
+
+    return application;
+  }
+
+  update(id: string, updateApplicationDto: UpdateApplicationDto): Application {
+    const application = this.findOne(id);
+
+    Object.assign(application, updateApplicationDto);
+
+    return application;
+  }
+
+  remove(id: string): Application {
+    const application = this.findOne(id);
+
+    const index = this.applications.indexOf(application);
+
+    this.applications.splice(index, 1);
 
     return application;
   }

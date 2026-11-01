@@ -10,9 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, } from '@nestjs/common';
 import { ApplicationsService } from './applications.service.js';
 import { CreateApplicationDto } from './dto/create-application.dto.js';
+import { UpdateApplicationDto } from './dto/update-application.dto.js';
 let ApplicationsController = class ApplicationsController {
     applicationsService;
     constructor(applicationsService) {
@@ -26,6 +27,12 @@ let ApplicationsController = class ApplicationsController {
     }
     create(createApplicationDto) {
         return this.applicationsService.create(createApplicationDto);
+    }
+    update(id, updateApplicationDto) {
+        return this.applicationsService.update(id, updateApplicationDto);
+    }
+    remove(id) {
+        return this.applicationsService.remove(id);
     }
 };
 __decorate([
@@ -48,6 +55,21 @@ __decorate([
     __metadata("design:paramtypes", [CreateApplicationDto]),
     __metadata("design:returntype", void 0)
 ], ApplicationsController.prototype, "create", null);
+__decorate([
+    Patch(':id'),
+    __param(0, Param('id')),
+    __param(1, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, UpdateApplicationDto]),
+    __metadata("design:returntype", void 0)
+], ApplicationsController.prototype, "update", null);
+__decorate([
+    Delete(':id'),
+    __param(0, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ApplicationsController.prototype, "remove", null);
 ApplicationsController = __decorate([
     Controller('applications'),
     __metadata("design:paramtypes", [ApplicationsService])
