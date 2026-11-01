@@ -1,5 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { randomUUID } from 'node:crypto';
 import type { Application } from './application.js';
+import type { CreateApplicationDto } from './dto/create-application.dto.js';
 
 @Injectable()
 export class ApplicationsService {
@@ -26,5 +28,29 @@ export class ApplicationsService {
 
   findAll(): Application[] {
     return this.applications;
+  }
+
+  findOne(id: string): Application {
+    const application = this.applications.find(
+      (application) => application.id === id,
+    );
+
+    if (!application) {
+      throw new NotFoundException(`Application with id ${id} was not found`);
+    }
+
+    return application;
+  }
+
+  create(createApplicationDto: CreateApplicationDto): Application {
+    const application: Application = {
+      id: randomUUID(),
+      ...createApplicationDto,
+      appliedAt: new Date().toISOString().slice(0, 10),
+    };
+
+    this.applications.push(application);
+
+    return application;
   }
 }

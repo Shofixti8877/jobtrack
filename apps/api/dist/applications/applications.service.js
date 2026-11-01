@@ -4,7 +4,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { randomUUID } from 'node:crypto';
 let ApplicationsService = class ApplicationsService {
     applications = [
         {
@@ -28,6 +29,22 @@ let ApplicationsService = class ApplicationsService {
     ];
     findAll() {
         return this.applications;
+    }
+    findOne(id) {
+        const application = this.applications.find((application) => application.id === id);
+        if (!application) {
+            throw new NotFoundException(`Application with id ${id} was not found`);
+        }
+        return application;
+    }
+    create(createApplicationDto) {
+        const application = {
+            id: randomUUID(),
+            ...createApplicationDto,
+            appliedAt: new Date().toISOString().slice(0, 10),
+        };
+        this.applications.push(application);
+        return application;
     }
 };
 ApplicationsService = __decorate([

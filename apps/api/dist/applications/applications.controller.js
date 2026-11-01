@@ -7,8 +7,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Controller, Get } from '@nestjs/common';
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApplicationsService } from './applications.service.js';
+import { CreateApplicationDto } from './dto/create-application.dto.js';
 let ApplicationsController = class ApplicationsController {
     applicationsService;
     constructor(applicationsService) {
@@ -17,6 +21,12 @@ let ApplicationsController = class ApplicationsController {
     findAll() {
         return this.applicationsService.findAll();
     }
+    findOne(id) {
+        return this.applicationsService.findOne(id);
+    }
+    create(createApplicationDto) {
+        return this.applicationsService.create(createApplicationDto);
+    }
 };
 __decorate([
     Get(),
@@ -24,6 +34,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ApplicationsController.prototype, "findAll", null);
+__decorate([
+    Get(':id'),
+    __param(0, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ApplicationsController.prototype, "findOne", null);
+__decorate([
+    Post(),
+    __param(0, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [CreateApplicationDto]),
+    __metadata("design:returntype", void 0)
+], ApplicationsController.prototype, "create", null);
 ApplicationsController = __decorate([
     Controller('applications'),
     __metadata("design:paramtypes", [ApplicationsService])
