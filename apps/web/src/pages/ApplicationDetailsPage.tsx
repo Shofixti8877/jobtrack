@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router';
-import { useApplications } from '../context/ApplicationsContext';
+import { useApplications } from '../context/useApplications';
 import './ApplicationDetailsPage.css';
 import StatusBadge from '../components/applications/StatusBadge';
 import { useState } from 'react';
@@ -29,8 +29,9 @@ function ApplicationDetailsPage() {
 
           <ApplicationForm
             initialApplication={application}
-            onSubmit={(updatedApplication) => {
-              updateApplication(updatedApplication);
+            onSubmit={async (applicationInput) => {
+              await updateApplication(application.id, applicationInput);
+
               setIsEditing(false);
             }}
             onCancel={() => setIsEditing(false)}

@@ -1,4 +1,4 @@
-import { useApplications } from '../context/ApplicationsContext';
+import { useApplications } from '../context/useApplications';
 import './DashboardPage.css';
 
 function DashboardPage() {

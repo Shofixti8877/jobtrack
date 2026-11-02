@@ -1,28 +1,19 @@
-/* eslint-disable react-refresh/only-export-components */
+import { useEffect, useState, type ReactNode } from 'react';
+
 import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from 'react';
-import type { Application, ApplicationStatus } from '../types/application';
-import { getApplications } from '../api/applicationsApi';
+  createApplication,
+  deleteApplication as deleteApplicationApi,
+  getApplications,
+  updateApplication as updateApplicationApi,
+} from '../api/applicationsApi';
 
-type ApplicationsContextValue = {
-  applications: Application[];
-  isLoading: boolean;
-  error: string | null;
+import type {
+  Application,
+  ApplicationInput,
+  ApplicationStatus,
+} from '../types/application';
 
-  addApplication: (application: Application) => void;
-  deleteApplication: (id: string) => void;
-  updateApplicationStatus: (id: string, status: ApplicationStatus) => void;
-  updateApplication: (application: Application) => void;
-};
-
-const ApplicationsContext = createContext<ApplicationsContextValue | undefined>(
-  undefined,
-);
+import { ApplicationsContext } from './applications-context';
 
 type ApplicationsProviderProps = {
   children: ReactNode;
@@ -30,7 +21,6 @@ type ApplicationsProviderProps = {
 
 export function ApplicationsProvider({ children }: ApplicationsProviderProps) {
   const [applications, setApplications] = useState<Application[]>([]);
-
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,6 +33,7 @@ export function ApplicationsProvider({ children }: ApplicationsProviderProps) {
         setError(null);
 
         const loadedApplications = await getApplications(controller.signal);
+
         setApplications(loadedApplications);
       } catch (error) {
         if (error instanceof DOMException && error.name === 'AbortError') {
@@ -66,33 +57,45 @@ export function ApplicationsProvider({ children }: ApplicationsProviderProps) {
     };
   }, []);
 
-  function addApplication(application: Application) {
+  async function addApplication(applicationInput: ApplicationInput) {
+    const createdApplication = await createApplication(applicationInput);
+
     setApplications((currentApplications) => [
       ...currentApplications,
-      application,
+      createdApplication,
     ]);
   }
 
-  function deleteApplication(id: string) {
+  async function deleteApplication(id: string) {
+    await deleteApplicationApi(id);
+
     setApplications((currentApplications) =>
       currentApplications.filter((application) => application.id !== id),
     );
   }
 
-  function updateApplicationStatus(id: string, status: ApplicationStatus) {
+  async function updateApplicationStatus(
+    id: string,
+    status: ApplicationStatus,
+  ) {
+    const updatedApplication = await updateApplicationApi(id, { status });
+
     setApplications((currentApplications) =>
       currentApplications.map((application) =>
-        application.id === id ? { ...application, status } : application,
+        application.id === id ? updatedApplication : application,
       ),
     );
   }
 
-  function updateApplication(updatedApplication: Application) {
+  async function updateApplication(
+    id: string,
+    applicationInput: ApplicationInput,
+  ) {
+    const updatedApplication = await updateApplicationApi(id, applicationInput);
+
     setApplications((currentApplications) =>
       currentApplications.map((application) =>
-        application.id === updatedApplication.id
-          ? updatedApplication
-          : application,
+        application.id === id ? updatedApplication : application,
       ),
     );
   }
@@ -112,16 +115,4 @@ export function ApplicationsProvider({ children }: ApplicationsProviderProps) {
       {children}
     </ApplicationsContext.Provider>
   );
-}
-
-export function useApplications() {
-  const context = useContext(ApplicationsContext);
-
-  if (!context) {
-    throw new Error(
-      'useApplications must be used within an ApplicationsProvider',
-    );
-  }
-
-  return context;
 }

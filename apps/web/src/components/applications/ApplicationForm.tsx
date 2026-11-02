@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import { APPLICATION_STATUSES } from '../../constants/applicationStatus';
-import type { Application, ApplicationStatus } from '../../types/application';
+import type {
+  Application,
+  ApplicationInput,
+  ApplicationStatus,
+} from '../../types/application';
 import './AddApplicationForm.css';
 
 type ApplicationFormProps = {
   initialApplication?: Application;
-  onSubmit: (application: Application) => void;
+  onSubmit: (application: ApplicationInput) => void | Promise<void>;
   onCancel: () => void;
 };
 
@@ -30,23 +34,20 @@ function ApplicationForm({
 
   const [notes, setNotes] = useState(initialApplication?.notes ?? '');
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const application: Application = {
-      id: initialApplication?.id ?? crypto.randomUUID(),
+    const application: ApplicationInput = {
       company: company.trim(),
       position: position.trim(),
       status,
-      appliedAt:
-        initialApplication?.appliedAt ?? new Date().toISOString().slice(0, 10),
       location: location.trim() || undefined,
       source: source.trim() || undefined,
       jobUrl: jobUrl.trim() || undefined,
       notes: notes.trim() || undefined,
     };
 
-    onSubmit(application);
+    await onSubmit(application);
   }
 
   return (

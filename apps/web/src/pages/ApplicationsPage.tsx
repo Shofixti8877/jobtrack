@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import ApplicationForm from '../components/applications/ApplicationForm';
 import ApplicationCard from '../components/applications/ApplicationCard';
-import { useApplications } from '../context/ApplicationsContext';
-import type { Application, ApplicationStatus } from '../types/application';
+import { useApplications } from '../context/useApplications';
+import type { ApplicationInput, ApplicationStatus } from '../types/application';
 import './ApplicationsPage.css';
 import { APPLICATION_STATUSES } from '../constants/applicationStatus';
 
@@ -22,7 +22,7 @@ function ApplicationsPage() {
     error,
   } = useApplications();
 
-  function handleAddApplication(application: Application) {
+  function handleAddApplication(application: ApplicationInput) {
     addApplication(application);
     setIsAddFormOpen(false);
   }
