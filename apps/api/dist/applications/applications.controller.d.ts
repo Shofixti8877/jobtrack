@@ -4,9 +4,9 @@ import { UpdateApplicationDto } from './dto/update-application.dto.js';
 export declare class ApplicationsController {
     private readonly applicationsService;
     constructor(applicationsService: ApplicationsService);
-    findAll(): import("./application.js").Application[];
-    findOne(id: string): import("./application.js").Application;
-    create(createApplicationDto: CreateApplicationDto): import("./application.js").Application;
-    update(id: string, updateApplicationDto: UpdateApplicationDto): import("./application.js").Application;
-    remove(id: string): import("./application.js").Application;
+    findAll(): Promise<import("./application.entity.js").ApplicationEntity[]>;
+    findOne(id: string): Promise<import("./application.entity.js").ApplicationEntity>;
+    create(createApplicationDto: CreateApplicationDto): Promise<import("./application.entity.js").ApplicationEntity>;
+    update(id: string, updateApplicationDto: UpdateApplicationDto): Promise<import("./application.entity.js").ApplicationEntity>;
+    remove(id: string): Promise<import("./application.entity.js").ApplicationEntity>;
 }

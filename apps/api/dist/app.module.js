@@ -5,16 +5,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller.js';
-import { AppService } from './app.service.js';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationsModule } from './applications/applications.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     Module({
-        imports: [ApplicationsModule],
-        controllers: [AppController],
-        providers: [AppService],
+        imports: [
+            TypeOrmModule.forRoot({
+                type: 'postgres',
+                host: 'localhost',
+                port: 5432,
+                username: 'jobtrack',
+                password: 'jobtrack',
+                database: 'jobtrack',
+                autoLoadEntities: true,
+                synchronize: true,
+            }),
+            ApplicationsModule,
+        ],
     })
 ], AppModule);
 export { AppModule };

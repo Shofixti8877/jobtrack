@@ -5,12 +5,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ApplicationEntity } from './application.entity.js';
 import { ApplicationsController } from './applications.controller.js';
 import { ApplicationsService } from './applications.service.js';
 let ApplicationsModule = class ApplicationsModule {
 };
 ApplicationsModule = __decorate([
     Module({
+        imports: [TypeOrmModule.forFeature([ApplicationEntity])],
         controllers: [ApplicationsController],
         providers: [ApplicationsService],
     })

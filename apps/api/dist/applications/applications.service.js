@@ -4,62 +4,54 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { randomUUID } from 'node:crypto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ApplicationEntity } from './application.entity.js';
 let ApplicationsService = class ApplicationsService {
-    applications = [
-        {
-            id: '1',
-            company: 'Acme',
-            position: 'Senior Full Stack Developer',
-            status: 'technical',
-            appliedAt: '2026-10-20',
-            location: 'Tel Aviv',
-            source: 'LinkedIn',
-        },
-        {
-            id: '2',
-            company: 'Globex',
-            position: 'Frontend Engineer',
-            status: 'screening',
-            appliedAt: '2026-10-22',
-            location: 'Herzliya',
-            source: 'Company website',
-        },
-    ];
-    findAll() {
-        return this.applications;
+    applicationsRepository;
+    constructor(applicationsRepository) {
+        this.applicationsRepository = applicationsRepository;
     }
-    findOne(id) {
-        const application = this.applications.find((application) => application.id === id);
+    findAll() {
+        return this.applicationsRepository.find();
+    }
+    async findOne(id) {
+        const application = await this.applicationsRepository.findOne({
+            where: { id },
+        });
         if (!application) {
             throw new NotFoundException(`Application with id ${id} was not found`);
         }
         return application;
     }
-    create(createApplicationDto) {
-        const application = {
-            id: randomUUID(),
+    async create(createApplicationDto) {
+        const application = this.applicationsRepository.create({
             ...createApplicationDto,
             appliedAt: new Date().toISOString().slice(0, 10),
-        };
-        this.applications.push(application);
-        return application;
+        });
+        return this.applicationsRepository.save(application);
     }
-    update(id, updateApplicationDto) {
-        const application = this.findOne(id);
+    async update(id, updateApplicationDto) {
+        const application = await this.findOne(id);
         Object.assign(application, updateApplicationDto);
-        return application;
+        return this.applicationsRepository.save(application);
     }
-    remove(id) {
-        const application = this.findOne(id);
-        const index = this.applications.indexOf(application);
-        this.applications.splice(index, 1);
-        return application;
+    async remove(id) {
+        const application = await this.findOne(id);
+        return this.applicationsRepository.remove(application);
     }
 };
 ApplicationsService = __decorate([
-    Injectable()
+    Injectable(),
+    __param(0, InjectRepository(ApplicationEntity)),
+    __metadata("design:paramtypes", [Repository])
 ], ApplicationsService);
 export { ApplicationsService };
 //# sourceMappingURL=applications.service.js.map
