@@ -26,7 +26,7 @@ AppModule = __decorate([
                     password: configService.getOrThrow('DB_PASSWORD'),
                     database: configService.getOrThrow('DB_NAME'),
                     autoLoadEntities: true,
-                    synchronize: true,
+                    synchronize: false,
                 }),
             }),
             ApplicationsModule,

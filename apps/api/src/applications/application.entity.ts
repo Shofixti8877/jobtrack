@@ -1,5 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import type { ApplicationStatus } from './application.js';
 
 @Entity('applications')
@@ -33,4 +38,10 @@ export class ApplicationEntity {
 
   @Column({ type: 'text', nullable: true })
   notes?: string;
+
+  @CreateDateColumn()
+  createdAt!: Date;
+
+  @UpdateDateColumn()
+  updatedAt!: Date;
 }

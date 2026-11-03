@@ -21,7 +21,7 @@ import { ApplicationsModule } from './applications/applications.module.js';
         database: configService.getOrThrow<string>('DB_NAME'),
 
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: false,
       }),
     }),
 

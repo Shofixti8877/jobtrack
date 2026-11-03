@@ -9,4 +9,6 @@ export declare class ApplicationEntity {
     jobUrl?: string;
     source?: string;
     notes?: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

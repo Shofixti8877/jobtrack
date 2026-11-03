@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn, } from 'typeorm';
 let ApplicationEntity = class ApplicationEntity {
     id;
     company;
@@ -18,6 +18,8 @@ let ApplicationEntity = class ApplicationEntity {
     jobUrl;
     source;
     notes;
+    createdAt;
+    updatedAt;
 };
 __decorate([
     PrimaryGeneratedColumn('uuid'),
@@ -58,6 +60,14 @@ __decorate([
     Column({ type: 'text', nullable: true }),
     __metadata("design:type", String)
 ], ApplicationEntity.prototype, "notes", void 0);
+__decorate([
+    CreateDateColumn(),
+    __metadata("design:type", Date)
+], ApplicationEntity.prototype, "createdAt", void 0);
+__decorate([
+    UpdateDateColumn(),
+    __metadata("design:type", Date)
+], ApplicationEntity.prototype, "updatedAt", void 0);
 ApplicationEntity = __decorate([
     Entity('applications')
 ], ApplicationEntity);
