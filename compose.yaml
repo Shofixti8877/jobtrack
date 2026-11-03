@@ -10,6 +10,38 @@ services:
       - "5432:5432"
     volumes:
       - jobtrack-postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jobtrack -d jobtrack"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+
+  api:
+    build:
+      context: ./apps/api
+    container_name: jobtrack-api
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: jobtrack
+      DB_PASSWORD: jobtrack
+      DB_NAME: jobtrack
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+  web:
+    build:
+      context: ./apps/web
+      args:
+        VITE_API_URL: /api
+    container_name: jobtrack-web
+    ports:
+      - "8088:80"
+    depends_on:
+      - api
 
 volumes:
   jobtrack-postgres-data:
