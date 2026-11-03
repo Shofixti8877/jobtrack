@@ -5,6 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationsModule } from './applications/applications.module.js';
 let AppModule = class AppModule {
@@ -12,15 +13,21 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     Module({
         imports: [
-            TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'jobtrack',
-                password: 'jobtrack',
-                database: 'jobtrack',
-                autoLoadEntities: true,
-                synchronize: true,
+            ConfigModule.forRoot({
+                isGlobal: true,
+            }),
+            TypeOrmModule.forRootAsync({
+                inject: [ConfigService],
+                useFactory: (configService) => ({
+                    type: 'postgres',
+                    host: configService.getOrThrow('DB_HOST'),
+                    port: Number(configService.getOrThrow('DB_PORT')),
+                    username: configService.getOrThrow('DB_USER'),
+                    password: configService.getOrThrow('DB_PASSWORD'),
+                    database: configService.getOrThrow('DB_NAME'),
+                    autoLoadEntities: true,
+                    synchronize: true,
+                }),
             }),
             ApplicationsModule,
         ],
