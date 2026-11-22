@@ -15,12 +15,6 @@ function ApplicationDetailsPage() {
 
   const application = applications.find((application) => application.id === id);
 
-  const formattedAppliedAt = new Intl.DateTimeFormat('en', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  }).format(new Date(`${application?.appliedAt}T00:00:00`));
-
   if (isLoading) {
     return (
       <section className="application-details">
@@ -55,6 +49,17 @@ function ApplicationDetailsPage() {
       </section>
     );
   }
+
+  const appliedDate = new Date(application.appliedAt);
+
+  const formattedAppliedAt = Number.isNaN(appliedDate.getTime())
+    ? application.appliedAt
+    : new Intl.DateTimeFormat('en', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }).format(appliedDate);
+
   if (isEditing) {
     return (
       <section className="application-details">
