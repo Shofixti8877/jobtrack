@@ -11,9 +11,7 @@ function AppShell() {
           <NavLink
             to="/applications"
             className={({ isActive }) =>
-              `sidebar__nav-item ${
-                isActive ? 'sidebar__nav-item--active' : ''
-              }`
+              `sidebar__nav-item ${isActive ? 'sidebar__nav-item--active' : ''}`
             }
           >
             Applications
@@ -22,23 +20,10 @@ function AppShell() {
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
-              `sidebar__nav-item ${
-                isActive ? 'sidebar__nav-item--active' : ''
-              }`
+              `sidebar__nav-item ${isActive ? 'sidebar__nav-item--active' : ''}`
             }
           >
             Dashboard
-          </NavLink>
-
-          <NavLink
-            to="/contacts"
-            className={({ isActive }) =>
-              `sidebar__nav-item ${
-                isActive ? 'sidebar__nav-item--active' : ''
-              }`
-            }
-          >
-            Contacts
           </NavLink>
         </nav>
       </aside>

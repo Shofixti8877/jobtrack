@@ -1,4 +1,21 @@
 .application-card {
+  min-width: 0;
+}
+
+.application-card__header {
+  min-width: 0;
+}
+
+.application-card__header > div {
+  min-width: 0;
+}
+
+.application-card__header h2,
+.application-card__header p {
+  overflow-wrap: anywhere;
+}
+
+.application-card {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -44,6 +61,7 @@
   border-radius: 6px;
   background: white;
   font: inherit;
+  width: 100%;
 }
 
 .application-card__date {

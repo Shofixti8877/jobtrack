@@ -1,10 +1,13 @@
 .app-shell {
   display: flex;
   min-height: 100vh;
+  background: #f9fafb;
 }
 
 .sidebar {
   width: 240px;
+  flex-shrink: 0;
+  min-height: 100vh;
   padding: 24px 16px;
   background: #111827;
   color: white;
@@ -24,16 +27,16 @@
 }
 
 .sidebar__nav-item {
+  display: block;
   width: 100%;
   padding: 10px 12px;
-  border: 0;
   border-radius: 6px;
   background: transparent;
   color: #d1d5db;
   font: inherit;
   text-align: left;
-  cursor: pointer;
   text-decoration: none;
+  box-sizing: border-box;
 }
 
 .sidebar__nav-item:hover {
@@ -63,4 +66,69 @@
 
 .main-content {
   padding: 32px;
+}
+
+/* Tablet / mobile */
+@media (max-width: 768px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: auto;
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .sidebar__logo {
+    margin-bottom: 16px;
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .sidebar__nav {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .sidebar__nav-item {
+    flex: 1;
+    width: auto;
+    padding: 9px 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .topbar {
+    height: 56px;
+    padding: 0 20px;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .sidebar {
+    padding: 14px 12px;
+  }
+
+  .sidebar__nav {
+    gap: 4px;
+  }
+
+  .sidebar__nav-item {
+    padding: 8px 6px;
+    font-size: 13px;
+  }
+
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .main-content {
+    padding: 16px;
+  }
 }

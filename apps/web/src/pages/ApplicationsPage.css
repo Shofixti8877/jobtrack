@@ -1,3 +1,8 @@
+.applications-page,
+.applications-page * {
+  box-sizing: border-box;
+}
+
 .applications-page {
   max-width: 1200px;
   margin: 0 auto;
@@ -171,6 +176,68 @@
   border-top-color: #475467;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
+}
+
+@media (max-width: 700px) {
+  .applications-page__header {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .applications-page__header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .applications-page__filters {
+    flex-direction: column;
+  }
+
+  .applications-page__filters input,
+  .applications-page__filters select {
+    width: 100%;
+  }
+
+  .applications-page__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-backdrop {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  .modal {
+    max-height: calc(100vh - 24px);
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .applications-page__header-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .applications-page__count {
+    align-self: flex-start;
+  }
+
+  .applications-page__add-button {
+    width: 100%;
+  }
+
+  .empty-state {
+    padding: 36px 20px;
+  }
+
+  .application-form__actions {
+    flex-direction: column-reverse;
+  }
+
+  .application-form__actions button {
+    width: 100%;
+  }
 }
 
 @keyframes spin {
