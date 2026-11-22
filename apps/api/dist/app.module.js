@@ -18,16 +18,25 @@ AppModule = __decorate([
             }),
             TypeOrmModule.forRootAsync({
                 inject: [ConfigService],
-                useFactory: (configService) => ({
-                    type: 'postgres',
-                    host: configService.getOrThrow('DB_HOST'),
-                    port: Number(configService.getOrThrow('DB_PORT')),
-                    username: configService.getOrThrow('DB_USER'),
-                    password: configService.getOrThrow('DB_PASSWORD'),
-                    database: configService.getOrThrow('DB_NAME'),
-                    autoLoadEntities: true,
-                    synchronize: false,
-                }),
+                useFactory: (configService) => {
+                    const databaseUrl = configService.get('DATABASE_URL');
+                    return {
+                        type: 'postgres',
+                        ...(databaseUrl
+                            ? {
+                                url: databaseUrl,
+                            }
+                            : {
+                                host: configService.getOrThrow('DB_HOST'),
+                                port: Number(configService.getOrThrow('DB_PORT')),
+                                username: configService.getOrThrow('DB_USER'),
+                                password: configService.getOrThrow('DB_PASSWORD'),
+                                database: configService.getOrThrow('DB_NAME'),
+                            }),
+                        autoLoadEntities: true,
+                        synchronize: false,
+                    };
+                },
             }),
             ApplicationsModule,
         ],
