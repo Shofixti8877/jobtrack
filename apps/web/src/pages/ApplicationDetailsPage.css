@@ -79,19 +79,74 @@
 }
 
 .application-details__actions {
-  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
 }
 
+.application-details__edit-button,
 .application-details__job-link {
-  display: inline-block;
-  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
   border-radius: 8px;
-  background: #111827;
-  color: white;
-  text-decoration: none;
+  font-size: 14px;
   font-weight: 600;
 }
 
-.application-details__job-link:hover {
+.application-details__edit-button {
+  border: none;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+}
+
+.application-details__edit-button:hover {
   background: #1f2937;
+}
+
+.application-details__job-link {
+  border: 1px solid #d0d5dd;
+  background: white;
+  color: #344054;
+  text-decoration: none;
+}
+
+.application-details__job-link:hover {
+  background: #f9fafb;
+}
+
+.page-state {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.page-state p {
+  margin: 0;
+  color: #667085;
+}
+
+.page-state__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eaecf0;
+  border-top-color: #475467;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

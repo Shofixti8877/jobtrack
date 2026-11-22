@@ -7,9 +7,43 @@ import ApplicationForm from '../components/applications/ApplicationForm';
 
 function ApplicationDetailsPage() {
   const { id } = useParams();
-  const { applications, updateApplication } = useApplications();
+
+  const { applications, updateApplication, isLoading, error } =
+    useApplications();
+
   const [isEditing, setIsEditing] = useState(false);
+
   const application = applications.find((application) => application.id === id);
+
+  const formattedAppliedAt = new Intl.DateTimeFormat('en', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(`${application?.appliedAt}T00:00:00`));
+
+  if (isLoading) {
+    return (
+      <section className="application-details">
+        <div className="page-state">
+          <div className="page-state__spinner" />
+          <p>Loading application...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="application-details">
+        <div className="application-details__card">
+          <h1>Could not load application</h1>
+          <p>{error}</p>
+
+          <Link to="/applications">← Back to applications</Link>
+        </div>
+      </section>
+    );
+  }
 
   if (!application) {
     return (
@@ -63,7 +97,7 @@ function ApplicationDetailsPage() {
         <div className="application-details__grid">
           <div className="application-details__field">
             <span className="application-details__label">Applied</span>
-            <span>{application.appliedAt}</span>
+            <span>{formattedAppliedAt}</span>
           </div>
 
           {application.location && (
@@ -88,8 +122,16 @@ function ApplicationDetailsPage() {
           </div>
         )}
 
-        {application.jobUrl && (
-          <div className="application-details__actions">
+        <div className="application-details__actions">
+          <button
+            type="button"
+            className="application-details__edit-button"
+            onClick={() => setIsEditing(true)}
+          >
+            Edit application
+          </button>
+
+          {application.jobUrl && (
             <a
               href={application.jobUrl}
               target="_blank"
@@ -98,11 +140,8 @@ function ApplicationDetailsPage() {
             >
               Open job posting ↗
             </a>
-          </div>
-        )}
-        <button type="button" onClick={() => setIsEditing(true)}>
-          Edit application
-        </button>
+          )}
+        </div>
       </article>
     </section>
   );
