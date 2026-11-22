@@ -46,7 +46,9 @@ export function ApplicationsProvider({ children }: ApplicationsProviderProps) {
             : 'Failed to load applications',
         );
       } finally {
-        setIsLoading(false);
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
       }
     }
 

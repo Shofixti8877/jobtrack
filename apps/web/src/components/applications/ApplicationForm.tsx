@@ -34,20 +34,31 @@ function ApplicationForm({
 
   const [notes, setNotes] = useState(initialApplication?.notes ?? '');
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const application: ApplicationInput = {
-      company: company.trim(),
-      position: position.trim(),
-      status,
-      location: location.trim() || undefined,
-      source: source.trim() || undefined,
-      jobUrl: jobUrl.trim() || undefined,
-      notes: notes.trim() || undefined,
-    };
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-    await onSubmit(application);
+    try {
+      await onSubmit({
+        company,
+        position,
+        status,
+        location: location || undefined,
+        jobUrl: jobUrl || undefined,
+        source: source || undefined,
+        notes: notes || undefined,
+      });
+    } catch {
+      setSubmitError('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -138,17 +149,32 @@ function ApplicationForm({
         />
       </div>
 
+      {submitError && (
+        <p className="form-error" role="alert">
+          {submitError}
+        </p>
+      )}
+
       <div className="application-form__actions">
         <button
           className="application-form__cancel"
           type="button"
           onClick={onCancel}
+          disabled={isSubmitting}
         >
           Cancel
         </button>
 
-        <button className="application-form__submit" type="submit">
-          {initialApplication ? 'Save changes' : 'Add application'}
+        <button
+          className="application-form__submit"
+          type="submit"
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? 'Saving...'
+            : initialApplication
+              ? 'Save changes'
+              : 'Add application'}
         </button>
       </div>
     </form>

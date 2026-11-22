@@ -6,13 +6,13 @@ import StatusBadge from './StatusBadge';
 
 type ApplicationCardProps = {
   application: Application;
-  onDelete: (id: string) => void;
+  deleteApplication: (id: string, company: string) => void;
   onStatusChange: (id: string, status: ApplicationStatus) => void;
 };
 
 function ApplicationCard({
   application,
-  onDelete,
+  deleteApplication,
   onStatusChange,
 }: ApplicationCardProps) {
   return (
@@ -61,7 +61,7 @@ function ApplicationCard({
       <div className="application-card__actions">
         <button
           className="application-card__delete"
-          onClick={() => onDelete(application.id)}
+          onClick={() => deleteApplication(application.id, application.company)}
         >
           Delete
         </button>

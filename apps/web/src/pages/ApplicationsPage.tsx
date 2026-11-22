@@ -22,9 +22,19 @@ function ApplicationsPage() {
     error,
   } = useApplications();
 
-  function handleAddApplication(application: ApplicationInput) {
-    addApplication(application);
+  async function handleAddApplication(application: ApplicationInput) {
+    await addApplication(application);
     setIsAddFormOpen(false);
+  }
+
+  async function handleDeleteApplication(id: string, company: string) {
+    const confirmed = window.confirm(`Delete the application at ${company}?`);
+
+    if (!confirmed) {
+      return;
+    }
+
+    await deleteApplication(id);
   }
 
   const filteredApplications = applications.filter((application) => {
@@ -39,12 +49,36 @@ function ApplicationsPage() {
 
     return matchesSearch && matchesStatus;
   });
+
+  const hasActiveFilters = searchTerm.trim() !== '' || statusFilter !== 'all';
+
   if (isLoading) {
-    return <p>Loading applications...</p>;
+    return (
+      <section className="applications-page">
+        <div className="page-state">
+          <div className="page-state__spinner" />
+          <p>Loading applications...</p>
+        </div>
+      </section>
+    );
   }
 
   if (error) {
-    return <p>Could not load applications: {error}</p>;
+    return (
+      <section className="applications-page">
+        <div className="page-state page-state--error">
+          <h2>Could not load applications</h2>
+          <p>{error}</p>
+
+          <button
+            className="applications-page__add-button"
+            onClick={() => window.location.reload()}
+          >
+            Try again
+          </button>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -92,40 +126,63 @@ function ApplicationsPage() {
         </div>
       )}
 
-      <div className="applications-page__filters">
-        <input
-          type="search"
-          placeholder="Search company or position..."
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
+      {applications.length === 0 ? (
+        <div className="empty-state">
+          <h2>No applications yet</h2>
+          <p>Start by adding your first job application.</p>
 
-        <select
-          value={statusFilter}
-          onChange={(event) =>
-            setStatusFilter(event.target.value as ApplicationStatus | 'all')
-          }
-        >
-          <option value="all">All statuses</option>
+          <button
+            className="applications-page__add-button"
+            onClick={() => setIsAddFormOpen(true)}
+          >
+            Add application
+          </button>
+        </div>
+      ) : (
+        <>
+          <div className="applications-page__filters">
+            <input
+              type="search"
+              placeholder="Search company or position..."
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
 
-          {APPLICATION_STATUSES.map((statusOption) => (
-            <option key={statusOption.value} value={statusOption.value}>
-              {statusOption.label}
-            </option>
-          ))}
-        </select>
-      </div>
+            <select
+              value={statusFilter}
+              onChange={(event) =>
+                setStatusFilter(event.target.value as ApplicationStatus | 'all')
+              }
+            >
+              <option value="all">All statuses</option>
 
-      <div className="applications-page__grid">
-        {filteredApplications.map((application) => (
-          <ApplicationCard
-            key={application.id}
-            application={application}
-            onDelete={deleteApplication}
-            onStatusChange={updateApplicationStatus}
-          />
-        ))}
-      </div>
+              {APPLICATION_STATUSES.map((statusOption) => (
+                <option key={statusOption.value} value={statusOption.value}>
+                  {statusOption.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {filteredApplications.length === 0 && hasActiveFilters ? (
+            <div className="empty-state">
+              <h2>No matching applications</h2>
+              <p>Try changing your search or status filter.</p>
+            </div>
+          ) : (
+            <div className="applications-page__grid">
+              {filteredApplications.map((application) => (
+                <ApplicationCard
+                  key={application.id}
+                  application={application}
+                  deleteApplication={handleDeleteApplication}
+                  onStatusChange={updateApplicationStatus}
+                />
+              ))}
+            </div>
+          )}
+        </>
+      )}
     </section>
   );
 }

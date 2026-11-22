@@ -39,7 +39,7 @@ services:
         VITE_API_URL: /api
     container_name: jobtrack-web
     ports:
-      - "8088:80"
+      - "18088:80"
     depends_on:
       - api
 

@@ -127,3 +127,54 @@
   outline-offset: 1px;
   border-color: #6b7280;
 }
+
+.empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  border: 1px dashed #d0d5dd;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.empty-state h2 {
+  margin: 0 0 8px;
+}
+
+.empty-state p {
+  margin: 0 0 20px;
+  color: #667085;
+}
+
+.page-state {
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.page-state p {
+  margin: 0;
+  color: #667085;
+}
+
+.page-state--error h2 {
+  margin: 0;
+}
+
+.page-state__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #eaecf0;
+  border-top-color: #475467;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
