@@ -1,3 +1,5 @@
+![CI](https://github.com/Shofixti8877/jobtrack/actions/workflows/ci.yml/badge.svg)
+
 # JobTrack
 
 JobTrack is a full-stack job application tracker built to manage applications, monitor progress through the hiring process, and provide a quick overview of an active job search.
